@@ -46,6 +46,16 @@ for seq in 0..fragmenter.total_frames() {
 // （解码时按 frame_infos 记录的边界切分）
 ```
 
+## 协议兼容性表（56 字节小数据测试）
+
+| 协议族 | 协议 | 编码 | 解码 | 备注 |
+|--------|------|------|------|------|
+| AUDIBLE | NORMAL / FAST / FASTEST | ✅ | ✅ | 全部可用 |
+| ULTRASOUND | NORMAL / FAST | ✅ | ✅ | 全部可用（载波频率 15-19.5kHz） |
+| DT | FASTEST | ✅ | ✅ | 可用 |
+| DT | NORMAL / FAST | ✅ | ❌ | 解码失败（DT 对音频特征要求更严格） |
+| MT | 所有 | ❌ | - | 编码失败（不支持变长载荷） |
+
 ## 测试结果（20,123 字节《横纵分析报告》）
 
 | 协议 | WAV 大小 | 帧数 | 结果 |
