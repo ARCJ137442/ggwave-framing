@@ -107,7 +107,7 @@ ggwave-framing/
 
 ## 输出文件
 
-- WAV 文件位于：`ggwave-framing/`
+- WAV 文件位于：`/storage/shared/Download/ggwave_framing_samples_2026-05-07/`
   - `AUDIBLE_FASTEST.wav`（92MB）
   - `AUDIBLE_FAST.wav`（170MB）
   - `AUDIBLE_NORMAL.wav`（248MB）
