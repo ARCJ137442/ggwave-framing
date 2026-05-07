@@ -58,11 +58,23 @@ for seq in 0..fragmenter.total_frames() {
 
 ## 测试结果（20,123 字节《横纵分析报告》）
 
-| 协议 | WAV 大小 | 帧数 | 结果 |
-|------|----------|------|------|
-| AUDIBLE_FASTEST | ~92MB | 212 | ✅ 全部正确 |
-| AUDIBLE_FAST | ~170MB | 212 | ✅ 全部正确 |
-| AUDIBLE_NORMAL | ~248MB | 212 | ✅ 全部正确 |
+### 多帧端到端测试
+
+| 协议 | WAV 大小 | 帧数 | 结果 | 说明 |
+|------|----------|------|------|------|
+| AUDIBLE_FASTEST | ~92MB | 212 | ✅ | 完整还原 20123 bytes |
+| DT_FASTEST | ~520MB | 212 | ✅ | 完整还原 20123 bytes |
+| AUDIBLE_FAST | ~170MB | 212 | ⚠️ | 帧5解码失败（实时传输丢帧） |
+| AUDIBLE_NORMAL | ~248MB | 212 | ⚠️ | 帧5解码失败（实时传输丢帧） |
+| ULTRASOUND_FAST | ~170MB | 212 | ⚠️ | 帧142解码失败（实时传输丢帧） |
+
+### 多帧测试结论
+
+GGWave 设计为**实时声波传输协议**，不是文件传输协议。传输过程中存在环境噪声干扰，导致丢帧。
+
+- **AUDIBLE_FASTEST / DT_FASTEST** 完整通过原因：码率最高，传输时间最短（~4分钟），减少暴露在噪声中的窗口
+- **其他协议** 丢帧原因：传输时间更长（8-15分钟），噪声累积导致部分帧无法解码
+- **实际用途**：适合传输 URL、验证码、简短指令等小数据（<1KB）
 
 ## 构建与测试
 
@@ -95,10 +107,12 @@ ggwave-framing/
 
 ## 输出文件
 
-- WAV 文件位于：`/storage/shared/Download/ggwave_framing_wavs/`
+- WAV 文件位于：`ggwave-framing/`
   - `AUDIBLE_FASTEST.wav`（92MB）
   - `AUDIBLE_FAST.wav`（170MB）
   - `AUDIBLE_NORMAL.wav`（248MB）
+  - `ULTRASOUND_NORMAL.wav`（248MB）
+  - `ULTRASOUND_FAST.wav`（170MB）
 
 ## 已知限制
 

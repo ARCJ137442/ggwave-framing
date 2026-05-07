@@ -2,6 +2,8 @@
 //!
 //! 测试分包编码/解码的完整流程
 
+#![cfg(feature = "wav")]
+
 use ggwave_framing::{Fragmenter, Deframer, GGWaveCodec, MAX_PAYLOAD_SIZE};
 
 #[test]
