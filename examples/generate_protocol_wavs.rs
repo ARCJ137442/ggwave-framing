@@ -76,7 +76,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     for (name, protocol_id) in &protocols {
         let wav_path = download_dir.join(format!("{}.wav", name));
         match generate_wav(name, *protocol_id, &wav_path, &full_data) {
-            Ok(size) => println!("  ✅ {}", name),
+            Ok(_size) => println!("  ✅ {}", name),
             Err(e) => println!("  ❌ {}: {}", name, e),
         }
         // 强制释放内存
