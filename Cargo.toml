@@ -1,0 +1,22 @@
+[package]
+name = "ggwave-framing"
+version = "0.1.0"
+edition = "2021"
+authors = ["GibberLink Project"]
+description = "GGWave fragmentation protocol for arbitrary-length data transmission"
+license = "MIT"
+repository = "https://github.com/gibberlink/ggwave-framing"
+
+[dependencies]
+ggwave-rs = { path = "../ggwave-rs" }
+thiserror = "1.0"
+hound = { version = "3.5", optional = true }
+log = "0.4"
+env_logger = "0.11"
+
+[dev-dependencies]
+proptest = "1.6"
+
+[features]
+default = []
+wav = ["hound"]  # WAV 文件支持
